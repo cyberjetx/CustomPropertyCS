@@ -1,83 +1,35 @@
-﻿//------------------------------------------------------------------------------
-//
-// Copyright (c) 2002-2017 CodeSmith Tools, LLC.  All rights reserved.
-//
-// The terms of use for this software are contained in the file
-// named sourcelicense.txt, which can be found in the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by the
-// terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-//
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Xml;
-using System.Xml.XPath;
-using CodeSmith.Engine;
-using CodeSmith.Engine.Schema;
 
 namespace CodeSmith.Xamples
 {
-    public class TableConfigurationCollectionSerializer : IPropertySerializer
+    public class ColumnConfigurationCollectionSerializer
     {
-
-        public object SaveProperty(PropertySerializerContext context, object propertyValue)
+        public string Serialize(ColumnConfigurationCollection collection)
         {
-            return propertyValue;
-        }
+            var xmlDoc = new XmlDocument();
+            XmlElement root = xmlDoc.CreateElement("Columns");
+            xmlDoc.AppendChild(root);
 
-        public object LoadProperty(PropertySerializerContext context, object propertyValue)
-        {
-            return propertyValue;
-        }
-
-        public void WritePropertyXml(PropertySerializerContext context, XmlWriter writer, object propertyValue)
-        {
-            TableConfigurationCollection collection = propertyValue as TableConfigurationCollection;
-
-            if (collection != null)
+            foreach (var column in collection.Columns)
             {
-                TableConfigurationSerializer itemSerializer = new TableConfigurationSerializer();
+                XmlElement columnElement = xmlDoc.CreateElement(column.ColumnName);
+                root.AppendChild(columnElement);
 
-                foreach (TableConfiguration item in collection)
-                {
-                    writer.WriteStartElement("TableConfiguration");
-                    itemSerializer.WritePropertyXml(context, writer, item);
-                    writer.WriteEndElement();
-                }
-            }
-        }
+                XmlElement typeElement = xmlDoc.CreateElement("Type");
+                typeElement.InnerText = column.Type;
+                columnElement.AppendChild(typeElement);
 
-        public object ReadPropertyXml(PropertySerializerContext context, XmlNode propertyValue)
-        {
-            if (context.PropertyInfo.PropertyType != typeof(TableConfigurationCollection))
-            {
-                return null;
+                XmlElement altNameElement = xmlDoc.CreateElement("AlternateName");
+                altNameElement.InnerText = column.AlternateName;
+                columnElement.AppendChild(altNameElement);
+
+                XmlElement oneClickElement = xmlDoc.CreateElement("OneClick");
+                oneClickElement.InnerText = column.OneClick.ToString();
+                columnElement.AppendChild(oneClickElement);
             }
 
-            XPathNavigator navigator = propertyValue.CreateNavigator();
-            XmlNamespaceManager oManager = new XmlNamespaceManager(navigator.NameTable);
-            TableConfigurationCollection collection = new TableConfigurationCollection();
-            TableConfigurationSerializer itemSerializer = new TableConfigurationSerializer();
-
-            // Add the CodeSmith namespace
-            oManager.AddNamespace("cs", CodeSmithProject.DefaultNamespace);
-
-            // Loop through items
-            XPathNodeIterator oIterator = navigator.Select("cs:TableConfiguration", oManager);
-            while (oIterator.MoveNext())
-            {
-                collection.Add(itemSerializer.ReadPropertyXmlInner(context, ((IHasXmlNode)oIterator.Current).GetNode()));
-            }
-
-            return collection;
+            return xmlDoc.OuterXml;
         }
-
-        public object ParseDefaultValue(PropertySerializerContext context, string defaultValue)
-        {
-            return new TableConfigurationCollection();
-        }
-
     }
 }

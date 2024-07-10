@@ -47,6 +47,9 @@
     <Reference Include="SchemaExplorer" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropDownEditor\DropDownEditorProperty.cs" />
+    <Compile Include="DropDownEditor\DropDownEditorPropertyEditor.cs" />
+    <Compile Include="DropDownEditor\DropDownEditorPropertySerializer.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaCollections\TableConfiguration.cs">
@@ -68,6 +71,7 @@
   <ItemGroup>
     <Content Include="readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetDir)$(TargetFileName) C:\Source\Addins\$(TargetFileName)</PostBuildEvent>

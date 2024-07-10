@@ -1,45 +1,21 @@
-﻿//------------------------------------------------------------------------------
-//
-// Copyright (c) 2002-2017 CodeSmith Tools, LLC.  All rights reserved.
-//
-// The terms of use for this software are contained in the file
-// named sourcelicense.txt, which can be found in the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by the
-// terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-//
-//------------------------------------------------------------------------------
-
-using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Text;
-using CodeSmith.Engine;
 
 namespace CodeSmith.Xamples
 {
-    [PropertySerializer(typeof(TableConfigurationCollectionSerializer))]
-    [Serializable]
-    public class TableConfigurationCollection : Collection<TableConfiguration>
+    public class ColumnConfigurationCollection
     {
-        public TableConfigurationCollection()
-        {
-        }
+        public List<ColumnConfiguration> Columns { get; set; } = new List<ColumnConfiguration>();
 
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
-
-            foreach (TableConfiguration oItem in this)
+            var sb = new StringBuilder();
+            sb.AppendLine("Columns:");
+            foreach (var column in Columns)
             {
-                if (builder.Length > 0)
-                {
-                    builder.Append(", ");
-                }
-                builder.Append(oItem.SourceTable.Name);
+                sb.AppendLine(column.ToString());
             }
-
-            return builder.ToString();
+            return sb.ToString();
         }
     }
 }
