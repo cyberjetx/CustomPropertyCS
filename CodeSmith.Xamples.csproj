@@ -64,14 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SchemaCollections.cst" />
-    <None Include="Scripts\CopyToProgramFiles.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell -NoProfile -ExecutionPolicy Bypass -File "$(ProjectDir)Scripts\CopyToProgramFiles.ps1" -source "$(TargetPath)" -destination "C:\Program Files (x86)\CodeSmith\v8.5\AddIns\$(TargetFileName)"
-</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)$(TargetFileName) C:\Source\Addins\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del C:\Source\Addins\$(TargetFileName)</PreBuildEvent>
   </PropertyGroup>
 </Project>
