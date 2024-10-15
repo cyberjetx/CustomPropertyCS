@@ -47,23 +47,23 @@
     <Reference Include="SchemaExplorer" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DropDownEditor\DropDownEditorProperty.cs" />
-    <Compile Include="DropDownEditor\DropDownEditorPropertyEditor.cs" />
-    <Compile Include="DropDownEditor\DropDownEditorPropertySerializer.cs" />
+    <Compile Include="DropDownProperty\DropDownListProperty.cs" />
+    <Compile Include="DropDownProperty\DropDownListPropertyEditor.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SchemaCollections\TableConfiguration.cs">
+    <Compile Include="SchemaCollections\ColConfiguration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SchemaCollections\TableConfigurationCollection.cs">
+    <Compile Include="SchemaCollections\ColConfigurationCollection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SchemaCollections\TableConfigurationCollectionSerializer.cs">
+    <Compile Include="SchemaCollections\ColConfigurationCollectionSerializer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SchemaCollections\TableConfigurationSerializer.cs">
+    <Compile Include="SchemaCollections\ColConfigurationSerializer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SchemaCollections\ColumnTypeEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchemaCollections.cst" />

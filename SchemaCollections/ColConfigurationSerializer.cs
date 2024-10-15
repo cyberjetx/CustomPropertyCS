@@ -15,7 +15,7 @@ namespace CodeSmith.Xamples
             root.AppendChild(columnElement);
 
             XmlElement typeElement = xmlDoc.CreateElement("Type");
-            typeElement.InnerText = column.Type;
+            typeElement.InnerText = column.Type.ToString(); // Convert to string representation
             columnElement.AppendChild(typeElement);
 
             XmlElement altNameElement = xmlDoc.CreateElement("AlternateName");
